@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:password@localhost/e_commerce'
 db = SQLAlchemy(app)
-
+ma = Marshmallow(app)
 class CustomerSchema (ma.Schema):
     name = fields.String(required=True)
     email=fields.String(required=True)
@@ -63,7 +63,7 @@ class Order (db.Model):
 
 
 class CustomerAccount (db.Model):
-    tablename = 'Customer_Accounts'
+    _tablename_ = 'Customer_Accounts'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password=db.Column(db.String(255), nullable=False)
